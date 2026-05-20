@@ -1,0 +1,183 @@
+﻿, desc:
+
+, href:
+
+, text:
+
+./(public)/page
+
+./globals.css
+
+./MobileDrawer
+
+./StatusUpdater
+
+/api/reviews
+
+/api/upload
+
+/images/placeholders/frame.jpg
+
+/services
+
+@/lib/security/rateLimiter
+
+@/services/category/category.service
+
+@/services/product/product.service
+
+@/services/review/review.service
+
+{r.text}
+
+{review.reviewText}
+
+Amaka E.
+
+APPROVED
+
+Base Price (100)
+
+basePrice100
+
+Book Now
+
+categories
+
+Category is required.
+
+categoryId
+
+checkbox
+
+clomedia
+
+clomedia/products
+
+createdAt
+
+customerName
+
+Dashboard
+
+datetime-local
+
+Default Delivery Days
+
+defaultDeliveryDays
+
+DELIVERED
+
+featured
+
+Featured Products
+
+Frame Sample
+
+Full Name
+
+Hero Images
+
+Home Gallery
+
+homepageGallery
+
+homepageHero
+
+https://wa.me/2348059086041
+
+isActive
+
+isDeleted
+
+James U.
+
+leaflet/dist/leaflet.css
+
+lucide-react
+
+mb-4 opacity-90
+
+mb-6 opacity-90
+
+mt-10 space-y-4
+
+Network error
+
+No file uploaded
+
+object-cover
+
+Our Products
+
+overflow-x-auto
+
+Override Price
+
+overridePrice
+
+p-3 space-x-2
+
+PACKAGING
+
+Place Order
+
+placeholder
+
+price-asc
+
+price-desc
+
+PRINTING
+
+PROCESSING
+
+Product Name
+
+Products
+
+react-hook-form
+
+READY_FOR_DELIVERY
+
+Real reviews from satisfied customers.
+
+relative
+
+Reliable Customer Service
+
+Save Product
+
+Search products...
+
+space-y-3
+
+space-y-4
+
+space-y-5
+
+space-y-6
+
+space-y-8
+
+startTime
+
+Submit order:
+
+TEST_PRODUCT_ID
+
+Update Status
+
+Upload failed
+
+use server
+
+w-full h-full object-cover
+
+WhatsApp Number
+
+whatsappNumber
+
+x-forwarded-for
+
+x-real-ip
