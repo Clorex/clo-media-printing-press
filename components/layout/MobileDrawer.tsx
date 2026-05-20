@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -8,13 +8,11 @@ import { motion, AnimatePresence } from "framer-motion";
 export function MobileDrawer() {
   const [open, setOpen] = useState(false);
 
+  const close = () => setOpen(false);
+
   return (
     <>
-      <button
-        aria-label="Open Menu"
-        onClick={() => setOpen(true)}
-        className="md:hidden"
-      >
+      <button onClick={() => setOpen(true)} className="md:hidden">
         <Menu />
       </button>
 
@@ -24,7 +22,8 @@ export function MobileDrawer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50"
+            className="fixed inset-0 bg-black/40 z-50"
+            onClick={close}
           >
             <motion.div
               initial={{ x: -300 }}
@@ -32,21 +31,18 @@ export function MobileDrawer() {
               exit={{ x: -300 }}
               transition={{ duration: 0.3 }}
               className="bg-white w-72 h-full p-6 shadow-brand-lg"
+              onClick={(e) => e.stopPropagation()}
             >
-              <button
-                aria-label="Close Menu"
-                onClick={() => setOpen(false)}
-                className="mb-6"
-              >
+              <button onClick={close} className="mb-6">
                 <X />
               </button>
 
-              <div className="flex flex-col gap-6 text-body-md">
-                <Link href="/">Home</Link>
-                <Link href="/services">Services</Link>
-                <Link href="/shop">Shop</Link>
-                <Link href="/track">Track Order</Link>
-                <Link href="/contact">Contact</Link>
+              <div className="flex flex-col gap-6 text-lg">
+                <Link href="/" onClick={close}>Home</Link>
+                <Link href="/services" onClick={close}>Services</Link>
+                <Link href="/shop" onClick={close}>Shop</Link>
+                <Link href="/track" onClick={close}>Track Order</Link>
+                <Link href="/contact" onClick={close}>Contact</Link>
               </div>
             </motion.div>
           </motion.div>

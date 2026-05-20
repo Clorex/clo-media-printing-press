@@ -1,4 +1,4 @@
-import { adminDb } from "@/lib/firebase/admin";
+﻿import { adminDb } from "@/lib/firebase/admin";
 
 async function getGallery() {
   const doc = await adminDb
@@ -13,22 +13,18 @@ export async function HomeGallerySection() {
   const images = await getGallery();
 
   return (
-    <section className="py-24 bg-white">
-      <div className="container-custom">
+    <section className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
 
-        <div className="gallery-grid">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {images.map((img: string, index: number) => (
-            <div key={index} className={`gallery-item gallery-${index + 1}`}>
-              {img ? (
+            <div key={index} className="rounded-xl overflow-hidden">
+              {img && (
                 <img
                   src={img}
                   alt=""
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  className="w-full h-48 md:h-72 object-cover"
                 />
-              ) : (
-                <div className="placeholder">
-                  <span>+</span>
-                </div>
               )}
             </div>
           ))}

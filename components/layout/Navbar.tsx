@@ -8,23 +8,21 @@ import { MobileDrawer } from "./MobileDrawer";
 export function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-brand">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex items-center justify-between h-16 md:h-20">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2">
             <Image
               src="/logo.png"
               alt="CLO Media Printing Press"
-              width={40}
-              height={40}
+              width={32}
+              height={32}
             />
-            <span className="font-bold text-xl text-brand-orange whitespace-nowrap">
+            <span className="font-bold text-sm md:text-xl text-brand-orange whitespace-nowrap">
               CLO MEDIA PRINTING PRESS
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8 text-sm font-semibold">
             <Link href="/">Home</Link>
             <Link href="/services">Services</Link>
@@ -33,14 +31,12 @@ export function Navbar() {
             <Link href="/contact">Contact</Link>
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="primary">
               Start an Order
             </Button>
           </div>
 
-          {/* Mobile Menu */}
           <div className="md:hidden">
             <MobileDrawer />
           </div>
