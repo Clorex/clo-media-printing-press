@@ -1,14 +1,31 @@
-import { NextRequest } from "next/server";
-import { withErrorHandler } from "@/app/api/_utils/withErrorHandler";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { errorResponse } from "@/app/api/_utils/apiResponse";
-import { createAdminSession } from "@/lib/auth/adminAuth";
 
-export const POST = withErrorHandler(async (req: NextRequest) => {
-  const { idToken } = await req.json();
+const SESSION_COOKIE_NAME = "clomedia_admin_session";
+const SESSION_EXPIRES_IN = 60 * 60 * 24 * 5;
 
-  if (!idToken || typeof idToken !== "string") {
-    return errorResponse("Missing or invalid ID token.", 400);
+export async function POST(req: NextRequest) {
+  const { email, password } = await req.json();
+
+  if (
+    email !== process.env.ADMIN_EMAIL ||
+    password !== process.env.ADMIN_SECRET_KEY
+  ) {
+    return errorResponse("Invalid credentials", 401);
   }
 
-  return await createAdminSession(idToken);
-});
+  const response = NextResponse.json({
+    success: true,
+    message: "Login successful",
+  });
+
+  response.cookies.set(SESSION_COOKIE_NAME, "valid_session", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    maxAge: SESSION_EXPIRES_IN,
+    path: "/",
+  });
+
+  return response;
+}
