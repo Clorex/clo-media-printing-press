@@ -2,6 +2,21 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { initializeApp, getApps } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+};
+
+// Prevent duplicate initialization
+const app = getApps().length === 0
+  ? initializeApp(firebaseConfig)
+  : getApps()[0];
+
+const auth = getAuth(app);
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -14,20 +29,33 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-    const res = await fetch("/api/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: formData.get("email"),
-        password: formData.get("password"),
-      }),
-    });
+    try {
+      // ✅ Sign in via Firebase Auth
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    if (res.ok) {
+      const idToken = await userCredential.user.getIdToken();
+
+      // ✅ Send ID token to backend
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Backend session creation failed");
+      }
+
       router.push("/admin");
-    } else {
-      alert("Invalid credentials");
+    } catch (error: any) {
+      alert(error?.message || "Login failed");
     }
 
     setLoading(false);
