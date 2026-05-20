@@ -11,10 +11,10 @@ const firebaseConfig = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
 };
 
-// Prevent duplicate initialization
-const app = getApps().length === 0
-  ? initializeApp(firebaseConfig)
-  : getApps()[0];
+const app =
+  getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApps()[0];
 
 const auth = getAuth(app);
 
@@ -33,16 +33,16 @@ export default function AdminLoginPage() {
     const password = formData.get("password") as string;
 
     try {
-      // ✅ Sign in via Firebase Auth
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential =
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
-      const idToken = await userCredential.user.getIdToken();
+      const idToken =
+        await userCredential.user.getIdToken();
 
-      // ✅ Send ID token to backend
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -50,7 +50,9 @@ export default function AdminLoginPage() {
       });
 
       if (!res.ok) {
-        throw new Error("Backend session creation failed");
+        throw new Error(
+          "Backend session creation failed"
+        );
       }
 
       router.push("/admin");

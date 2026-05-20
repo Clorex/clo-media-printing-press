@@ -56,13 +56,8 @@ export default function AdminLoginPage() {
       }
 
       router.push("/admin");
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : "Login failed";
-
-      alert(message);
+    } catch (error: any) {
+      alert(error?.message || "Login failed");
     }
 
     setLoading(false);
@@ -102,4 +97,5 @@ export default function AdminLoginPage() {
         </form>
       </div>
     </div>
+  );
 }
