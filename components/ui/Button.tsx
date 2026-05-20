@@ -22,11 +22,11 @@ export function Button({
 
   const variants = {
     primary:
-      "bg-brand-orange text-white hover:bg-brand-orangeDark shadow-brand-orange",
+      "bg-brand-orange !text-white hover:bg-brand-orangeDark shadow-brand-orange",
     secondary:
-      "bg-brand-gray-dark text-white hover:bg-black",
+      "bg-brand-gray-dark !text-white hover:bg-black",
     outline:
-      "border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white",
+      "border border-brand-orange text-brand-orange hover:bg-brand-orange hover:!text-white",
     ghost:
       "text-brand-gray-dark hover:bg-brand-gray-light",
   };
