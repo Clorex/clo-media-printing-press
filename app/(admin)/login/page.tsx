@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
         alert("Login failed");
       }
     } catch {
-      alert("Invalid credentials");
+      alert(error.message);
     }
 
     setLoading(false);
