@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
@@ -11,7 +11,11 @@ const firebaseConfig = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
 };
 
-const app = initializeApp(firebaseConfig);
+const app =
+  getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApps()[0];
+
 const auth = getAuth(app);
 
 export default function AdminLoginPage() {
@@ -29,13 +33,15 @@ export default function AdminLoginPage() {
     const password = formData.get("password") as string;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential =
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
-      const idToken = await userCredential.user.getIdToken();
+      const idToken =
+        await userCredential.user.getIdToken();
 
       const res = await fetch("/api/admin/login", {
         method: "POST",
@@ -43,13 +49,20 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ idToken }),
       });
 
-      if (res.ok) {
-        router.push("/admin");
-      } else {
-        alert("Login failed");
+      if (!res.ok) {
+        throw new Error(
+          "Backend session creation failed"
+        );
       }
-    } catch {
-      alert(error.message);
+
+      router.push("/admin");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Login failed";
+
+      alert(message);
     }
 
     setLoading(false);
@@ -89,5 +102,4 @@ export default function AdminLoginPage() {
         </form>
       </div>
     </div>
-  );
 }
