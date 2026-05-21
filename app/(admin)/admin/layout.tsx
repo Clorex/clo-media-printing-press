@@ -1,4 +1,4 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { AdminSidebar } from "@/components/admin/layout/AdminSidebar";
 import { AdminHeader } from "@/components/admin/layout/AdminHeader";
@@ -12,7 +12,7 @@ export default async function AdminLayout({
   const session = cookieStore.get("clomedia_admin_session");
 
   if (!session || session.value !== "valid_session") {
-    redirect("/admin/login");
+    redirect("/login");
   }
 
   return (
