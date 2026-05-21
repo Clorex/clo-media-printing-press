@@ -27,7 +27,7 @@ export default async function RootLayout({
   const isAdminRoute = pathname.startsWith("/admin");
 
   return (
-    <html lang="en" className={${delight.variable} h-full antialiased}>
+    <html lang="en" className={`${delight.variable} h-full antialiased`}>
       <body className="min-h-screen flex flex-col bg-white text-brand-gray-dark">
         
         {!isAdminRoute && <Navbar />}
